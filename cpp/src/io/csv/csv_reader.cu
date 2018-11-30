@@ -56,7 +56,7 @@
  
 #include "rmm/rmm.h"
 
-#include "NVStrings.h"
+// #include "NVStrings.h"
 
 constexpr int32_t HASH_SEED = 33;
 
@@ -640,14 +640,14 @@ gdf_error read_csv(csv_read_arg *args)
 		if (gdf->dtype != gdf_dtype::GDF_STRING)
 			continue;
 
-		NVStrings* const stringCol = NVStrings::create_from_index(h_str_cols[stringColCount],size_t(raw_csv->num_records));
+		Strings* const stringCol = Strings::create_from_index(h_str_cols[stringColCount],size_t(raw_csv->num_records));
 		if ((raw_csv->quotechar != '\0') && (raw_csv->doublequote==true)) {
 			// In PANDAS, default of enabling doublequote for two consecutive
 			// quotechar in quote fields results in reduction to single
 			std::string quotechar = std::string(&raw_csv->quotechar);
 			std::string doublequotechar = quotechar + raw_csv->quotechar;
 			gdf->data = stringCol->replace(doublequotechar.c_str(), quotechar.c_str());
-			NVStrings::destroy(stringCol);
+			Strings::destroy(stringCol);
 		}
 		else {
 			gdf->data = stringCol;

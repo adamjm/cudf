@@ -110,20 +110,20 @@ link_directories("${CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES}" # CMAKE_CUDA_IMPLICIT
 ###################################################################################################
 # - nvstrings -------------------------------------------------------------------------------------
 
-find_file(NVSTRINGS_INCLUDE "NVStrings.h"
-          HINTS "$ENV{NVSTRINGS_ROOT}/include"
-                "$ENV{CONDA_PREFIX}/include")
-find_library(NVSTRINGS_LIBRARY "NVStrings"
-             HINTS "$ENV{NVSTRINGS_ROOT}/lib"
-                   "$ENV{CONDA_PREFIX}/lib")
+#find_file(NVSTRINGS_INCLUDE "NVStrings.h"
+#          HINTS "$ENV{NVSTRINGS_ROOT}/include"
+#                "$ENV{CONDA_PREFIX}/include")
+#find_library(NVSTRINGS_LIBRARY "NVStrings"
+#             HINTS "$ENV{NVSTRINGS_ROOT}/lib"
+#                   "$ENV{CONDA_PREFIX}/lib")
 
-if(NVSTRINGS_INCLUDE AND NVSTRINGS_LIBRARY)
-    execute_process(WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-                    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/include
-                    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib
-                    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR} ln -snf ${NVSTRINGS_INCLUDE} ${CMAKE_BINARY_DIR}/include/NVStrings.h
-                    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR} ln -snf ${NVSTRINGS_LIBRARY} ${CMAKE_BINARY_DIR}/lib/libNVStrings.so)
-endif(NVSTRINGS_INCLUDE AND NVSTRINGS_LIBRARY)
+#if(NVSTRINGS_INCLUDE AND NVSTRINGS_LIBRARY)
+#    execute_process(WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+#                    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/include
+#                    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib
+#                    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR} ln -snf ${NVSTRINGS_INCLUDE} ${CMAKE_BINARY_DIR}/include/NVStrings.h
+#                    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR} ln -snf ${NVSTRINGS_LIBRARY} ${CMAKE_BINARY_DIR}/lib/libNVStrings.so)
+#endif(NVSTRINGS_INCLUDE AND NVSTRINGS_LIBRARY)
 
 ###################################################################################################
 # - library targets -------------------------------------------------------------------------------
@@ -185,7 +185,7 @@ endif(CMAKE_BUILD_TYPE MATCHES Debug)
 ###################################################################################################
 # - link libraries --------------------------------------------------------------------------------
 
-target_link_libraries(rmm cudart cuda NVStrings)
+target_link_libraries(rmm cudart cuda )#NVStrings)
 target_link_libraries(cudf rmm "${ARROW_LIB}")
 
 ###################################################################################################
